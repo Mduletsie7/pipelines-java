@@ -22,6 +22,8 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'build'
     
+- task: PublishBuildArtifacts@1
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'PAYG subscription(98510e54-4e62-4d79-8000-68ac56355c66)'
