@@ -44,3 +44,11 @@ steps:
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
 
+# Deploy to Azure Web App
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'PAYG subscription(98510e54-4e62-4d79-8000-68ac56355c66)'
+    appType: 'webAppLinux'
+    appName: 'appjava-wa'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'JAVA|8-jre8'
