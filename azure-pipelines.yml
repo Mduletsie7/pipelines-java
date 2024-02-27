@@ -24,12 +24,23 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'build'
 
-# Publish build artifacts to Azure Pipeline
+# Copy build artifacts to Azure Pipeline staging area
 - task: CopyFiles@2
   inputs:
     targetFolder: '$(Build.ArtifactStagingDirectory)'    
 
+# Archive build files
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+# Publish build artifacts to Azure Pipeline
 - task: PublishBuildArtifacts@1    
   displayName: 'Publish Artifact: drop'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
+
